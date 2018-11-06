@@ -1,0 +1,566 @@
+/* Kaeun Layout */
+.k_biglot {
+  display: grid;
+  grid-template-areas:
+    'menu main main main main right';
+  grid-gap: 0px;
+  background-color: #ffffff;
+  padding: 0px;
+}
+.k_biglot > div {
+  /* padding: 20px 0; */
+}
+.k_contentlot { grid-area: main;
+				/* background-color: #fdd734; */
+				font-family: 'Gothic A1', sans-serif; 
+				}
+.k_rightlot { grid-area: right; 
+				/* background-color: #fdd734; */
+				width: 150px;}
+				
+.k_leftlot { grid-area: menu;
+            display:block;
+             width: 150px;
+ 		 	height: 100vh;
+            }
+
+/*  navi */
+
+.k_navi{
+  display: block;
+  text-align: center;
+  margin-top : 10%;
+   font-family: 'Do Hyeon', sans-serif;
+  /* font-size : 20px;  */
+  /* text-align: center; */
+  
+}
+
+
+#k_navi_menu{
+	margin-top: 5%;
+	position : fixed;
+	margin-left : 2%;
+}
+
+#k_navi_menu home{
+	}
+	
+.b01_simple_rollover {
+    color: #000000;
+    padding: 10px;
+    background-color: none;
+    width: 100%;
+}
+
+.b01_simple_rollover:hover {
+    color: #ffffff;
+    background-color: rgb(0, 0, 0);
+}
+
+
+.k_header {
+	grid-area: header;
+	}
+.k_content {grid-area: main,
+			background-color: 'none'}
+.grid_title_l { grid-area: title_l;}
+.grid_title_r { grid-area: title_r;}
+.k_footer { grid-area: footer; 
+		}
+
+/*Cart layout Grid */
+.grid_layout {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'main main main main main main'
+    'footer footer footer footer footer footer';
+  grid-gap: 5px;
+  background-color: #ffffff;
+  padding: 8px;
+  background-color: #fdd734;
+}
+.grid_layout > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  /* text-align: center; */
+  padding: 5px 0;
+  font-size: 15px;
+}
+
+/* Cart Grid */
+.list-grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+  grid-gap: 1px;
+  background-color: rgb(255,255,255,0.5);
+  padding: 5px;
+}
+.list-grid-container > div {
+  //background-color: rgba(255, 255, 255, 0.8);
+  //text-align: center;
+  padding: 5px 0;
+  //font-size: 16px;
+}
+
+.item_result {
+  grid-column-start: 1;
+  grid-column-end: 9;
+  text-align: right;
+}
+.item_header {
+  text-align: center;
+ background-color: rgb(191, 191, 191); 
+  color:  #ffffff;
+  font-family: 'Do Hyeon', sans-serif;
+}
+.item_headerinfo {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  text-align: center;
+   background-color: rgb(191, 191, 191); 
+  color:  #ffffff;
+  font-family: 'Do Hyeon', sans-serif;
+}
+.item_headerinfo_pay {
+  grid-column-start: 2;
+  grid-column-end: 5;
+  text-align: center;
+  background-color: rgb(191, 191, 191); 
+  color:  #ffffff;
+  font-family: 'Do Hyeon', sans-serif;   
+}
+.itemname {
+    text-align: center;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    font-size : 14px;
+    margin-top : 10px;
+}
+.iteminfo, .iteminfo1 {
+    text-align: center;
+    margin-top : 10px;
+    font-size : 14px;
+}
+.iteminfo p{
+	font-family: 'Do Hyeon', sans-serif;
+	font-size : 17px;
+	text-shadow: 0 0 2px #808080;
+	-moz-text-shadow: 0 0 2px #808080;
+	-webkit-text-shadow: 0 0 2px #808080;
+}
+.cart_img{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1px;
+    width: 120px;
+}
+
+/* ★장바구니 title*/
+.cart_title{
+    /* background: url(https://images.pexels.com/photos/952356/pexels-photo-952356.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260) no-repeat; */
+    background-color : #bb1d1e;
+    opacity: 0.8;
+    background-size: 100%;
+    margin-top: 10px;
+    padding: 2%;
+    /* color : white; */
+}
+.title_yellow{
+	background-color : #fdcf33;
+	opacity: 0.8;
+    background-size: 100%;
+    margin-top: 10px;
+    padding: 2%;
+}
+.title_yellow p, .cart_title p{
+	color : #fff;
+	font-size : 3rem;
+	margin-left : 40%;
+	text-shadow: 0 0 2px #808080;
+	-moz-text-shadow: 0 0 2px #808080;
+	-webkit-text-shadow: 0 0 2px #808080;
+	font-family: 'Do Hyeon', sans-serif;
+}
+
+
+.bs-wizard {margin-top: 0px;
+            margin-left: 30%;}
+
+.bs-wizard {border-bottom: solid 1px #e0e0e0; padding: 0 0 10px 0;}
+.bs-wizard > .bs-wizard-step {padding: 0; position: relative;}
+.bs-wizard > .bs-wizard-step + .bs-wizard-step {}
+.bs-wizard > .bs-wizard-step .bs-wizard-stepnum {color: #595959; font-size: 14px; margin-bottom: 2px;}
+.bs-wizard > .bs-wizard-step .bs-wizard-info {color: #999; font-size: 14px;}
+.bs-wizard > .bs-wizard-step > .bs-wizard-dot {position: absolute; width: 30px; height: 30px; display: block; background: #fbe8aa; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%;}
+.bs-wizard > .bs-wizard-step > .bs-wizard-dot:after {content: ' '; width: 14px; height: 14px; background: #fbbd19; border-radius: 50px; position: absolute; top: 8px; left: 8px; }
+.bs-wizard > .bs-wizard-step > .progress {position: relative; border-radius: 0px; height: 8px; box-shadow: none; margin: 20px 0;}
+.bs-wizard > .bs-wizard-step > .progress > .progress-bar {width:0px; box-shadow: none; background: #fbe8aa;}
+.bs-wizard > .bs-wizard-step.complete > .progress > .progress-bar {width:100%;}
+.bs-wizard > .bs-wizard-step.active > .progress > .progress-bar {width:50%;}
+.bs-wizard > .bs-wizard-step:first-child.active > .progress > .progress-bar {width:0%;}
+.bs-wizard > .bs-wizard-step:last-child.active > .progress > .progress-bar {width: 100%;}
+.bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot {background-color: #f5f5f5;}
+.bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot:after {opacity: 0;}
+.bs-wizard > .bs-wizard-step:first-child  > .progress {left: 50%; width: 50%;}
+.bs-wizard > .bs-wizard-step:last-child  > .progress {width: 50%;}
+.bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot{ pointer-events: none; }
+/*END Form Wizard*/
+
+
+/*standard layout Grid */
+.grid_standard_layout {
+  display: grid;
+  grid-template-areas:
+    'title_l title_l title_l title_r title_r title_r'
+    'main main main main main main';
+  grid-gap: 5px;
+  background-color: #ffffff;
+  padding: 5px;
+}
+.grid_standard_layout > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  /* text-align: center; */
+  padding: 30px 0;
+  font-size: 15px;
+}
+
+
+/* 버튼css */
+.btn-two.green   {background-color: #9abf7f;}
+.btn-two.red       {background-color: #bb1d1e;}
+.btn-two.white {background-color: #ffffff;
+                     color:#4d4d4d;}
+.btn-two.yellowp {background-color: #ffd633;}
+.btn-two.blue     {background-color: #7fccde;}
+.btn-two.redp {background-color: #ea7b7b;}
+.btn-two.red2 {background-color: #bb1d1e;}
+.btn-two.greenp {background-color: #ffe066;}
+.btn-two.purple {background-color: #cb99c5;}
+.btn-two.yellow {background-color: #fdcf33;}
+.btn-two.grey {background-color: #cccccc;}
+.btn-two.black {background-color: #000000;}
+.btn-two.mini{
+  padding: 4px 11px;  
+  font-size: 11px;
+  font-family: 'Do Hyeon', sans-serif;
+}
+.btn-two.big{
+  padding: 5px 20px
+    font-size: 20px;
+    font-family: 'Do Hyeon', sans-serif;
+}
+.btn-two {
+    margin-top : 1px;
+    color: white;   
+    padding: 15px 25px;
+    display: inline-block;
+    border: 1px solid rgba(0,0,0,0.21);
+    border-bottom-color: rgba(0,0,0,0.34);
+    text-shadow:0 1px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.34) inset,
+                      0 2px 0 -1px rgba(0,0,0,0.13),
+                      0 3px 0 -1px rgba(0,0,0,0.08),
+                      0 3px 13px -1px rgba(0,0,0,0.21);
+}
+.btn-two:active {
+    top: 1px;
+    border-color: rgba(0,0,0,0.34) rgba(0,0,0,0.21) rgba(0,0,0,0.21);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.89),0 1px rgba(0,0,0,0.05) inset;
+    position: relative;
+}
+
+
+/* 구매 내역 search */
+/* .form-control {
+  max-width : 150px;
+  display:inline;
+} */
+
+/* .pay_search_grid {
+  display: grid;
+  grid-template-areas:
+    'auto auto'
+  grid-gap: 2px;
+  background-color: #ffffff;
+  padding: 8px;
+} */
+
+/* payHis */
+
+
+/* 페이지네이션 */
+#pageNation{
+	margin-left: 40%;
+}
+.pagination .page-item.active .page-link{
+	background-color:#bb1d1e !important;
+}
+/* taste */
+.taste-background {
+  width: 100%;
+  height: 1800px;
+  /* background-image: url(https://images.pexels.com/photos/940302/pexels-photo-940302.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260); */
+  /* linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0)); */
+  background-size: 105%;
+  background-repeat: repeat-y;
+  /* no-repeat,
+      no-repeat,
+      no-repeat; */
+/*   background-position-x: 30px; */
+/*   background-position-y: 38%; */
+   background-attachment: fixed;  
+}
+.mytaste_text{
+  font-size : 4rem;
+}
+
+.anlyz_form{
+  margin-top: 20px;
+  background-color: rgba(255,255,255,0.6);
+  width : 800px;
+  height: 400px;
+   border:2px solid #c0c0c0;
+   margin-left: 5%;
+}
+
+.anlyz_form p{
+	font-size: 15px;
+	margin-top : 15px;
+	margin-left : 20px;
+	color : #808080;
+
+}
+
+/* gift 선물함 */
+.card_row{
+	 margin-top: 10px;
+}
+
+.gift_c {
+   /*  position:absolute; */
+    /* top:50%;
+    left:50%; */
+    /* transform:translate(-50%,-50%); */
+    width:300px;
+    height:250px;
+    background:#ffffff;
+    overflow:hidden;
+    box-shadow:0 5px 10px rgba(0,0,0,0.5);
+    font-family: 'Nanum Pen Script', cursive;
+    
+}
+.gift_c .gift_img {
+    position:relative;
+    overflow:hidden;
+}
+.gift_c .gift_img:before {
+    content:'';
+    position:absolute;
+    bottom:-182px;
+    left:0;
+    width:100%;
+    height:100%;
+    background: linear-gradient(0deg, #ffffff 50%, transparent);
+    transition:0.5s;
+    z-index:1;
+}
+.gift_c:hover .gift_img:before {
+    bottom:0;
+}
+.gift_c .gift_img img {
+    width:100%;
+    transition:0.5s;
+}
+.gift_c:hover .gift_img img {
+    filter:blur(5px);
+    transform:translateY(-50px);
+}
+.gift_details { /* message */
+    position:absolute;
+    padding:20px;
+    width:100%;
+    height:100%;
+    bottom:-170px;
+    left:0;
+    box-sizing:border-box;
+    transition:0.5s;
+    z-index:2;
+}
+.gift_c:hover .gift_details {
+    bottom:23px;
+}
+.gift_details h2 { /*아이템이름*/
+    color:#000;
+    margin:0;
+    padding:0;
+    font-size:24px;
+    font-boarder:2px;
+    font-family: 'Do Hyeon', sans-serif;
+    text-shadow: 0 0 2px #ffffff;
+	-moz-text-shadow: 0 0 2px #ffffff;
+	-webkit-text-shadow: 0 0 2px #ffffff;
+}
+.gift_details h2 span {  /*From.★*/
+    font-size:22px;
+    color:#000;
+    font-family: 'Nanum Pen Script', cursive;
+    text-shadow: 0 0 0px #808080;
+	-moz-text-shadow: 0 0 0px #808080;
+	-webkit-text-shadow: 0 0 0px #808080;
+}
+
+.gift_msg {
+    color:#000;
+}
+.gift_msg p {
+    margin:15px 0 10px;
+}
+.gift_link {
+    position:relative;
+}
+.gift_link h4 {
+    margin:0;
+    padding:0;
+    font-size:20px;
+    color:#000;
+}
+.gift_link ul {
+    padding:0;
+    display:flex;
+}
+.gift_link ul li {
+    list-style:none;
+    width:35px;
+    height:35px;
+    background:#fff;
+    border-radius:50%;
+    overflow:hidden;
+    margin-right:6px;
+    border:2px solid #fff;
+}
+.gift_link ul li img {
+    width:100%;
+}
+
+.custom-select{
+	width:200px	
+}
+
+/* 앨범 화면 */
+/*Now the styles*/
+* {
+    margin: 0; 
+	padding: 0;
+}
+/* body {
+	background: #ccc; 
+	font-family: arial, verdana, tahoma;
+} */
+
+/*Time to apply widths for accordian to work
+Width of image = 640px
+total images = 5
+so width of hovered image = 640px
+width of un-hovered image = 40px - you can set this to anything
+so total container width = 640 + 40*4 = 800px;
+default width = 800/5 = 160px;
+*/
+
+.accordian {
+	width: 805px; height: 320px;
+	overflow: hidden;	
+	/*Time for some styling*/
+	margin: 100px auto;
+	box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.35);
+	-webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.35);
+	-moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.35);
+}
+
+/*A small hack to prevent flickering on some browsers*/
+.accordian ul {
+	width: 1200px;
+	/*This will give ample space to the last item to move
+	instead of falling down/flickering during hovers.*/
+}
+
+.accordian li {
+	position: relative;
+	display: block;
+	width: 160px;
+	float: left;
+	
+	border-left: 1px solid #888;
+	
+	box-shadow: 0 0 25px 10px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0 0 25px 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 0 25px 10px rgba(0, 0, 0, 0.5);
+	
+	/*Transitions to give animation effect*/
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	/*If you hover on the images now you should be able to 
+	see the basic accordian*/
+}
+
+/*Reduce with of un-hovered elements*/
+.accordian ul:hover li {width: 40px;}
+/*Lets apply hover effects now*/
+/*The LI hover style should override the UL hover style*/
+.accordian ul li:hover {width: 640px;}
+
+
+.accordian li img {
+	display: block;
+}
+
+.k_home_img{
+  height: 320px;
+  width : 805px;
+}
+/*Image title styles*/
+.image_title {
+	background: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	left: 0; bottom: 0;	
+width: 640px;	
+
+}
+.image_title a {
+	display: block;
+	color: #fff;
+	text-decoration: none;
+	padding: 20px;
+	font-size: 16px;
+}
+/* 앨범 화면 끝 */
+/* chart */
+#series_chart_div{
+	 background: url('/resources/img/kaeun/worldmap.png') no-repeat;
+	 /* background: url('/web/resources/img/kaeun/worldmap.png') no-repeat; */
+	 background-size: 80%; 
+}
+
+/*gift 팝업*/
+.val_o{
+	color: #008000;
+	font-size : 13px;
+}
+.val_x{
+	color: #c62f09;
+	font-size : 13px;
+}
+#counter {
+  background:rgba(255,0,0,0.5);
+  border-radius: 0.5em;
+  padding: 0 .5em 0 .5em;
+  font-size: 0.75em;
+}
+/*결제 */
+.pay_end{
+ margin-left : 40%;
+}
+.pay_end p{
+ margin-left : 5%;	
+}

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.bemeal.web.cmm.CommonMapper">
+  	<resultMap type="hashmap" id="result">
+  		<result property="itemSeq" column="ITEM_SEQ"/>
+  		<result property="itemName" column="ITEM_NAME"/>
+  		<result property="brand" column="BRAND"/>
+  		<result property="category" column="CATEGORY"/>
+  		<result property="price" column="PRICE"/>
+  		<result property="salePercent" column="SALE_PERCENT"/>
+  		<result property="event" column="EVENT"/>
+  		<result property="newItem" column="NEW_ITEM"/>
+  		<result property="explains" column="EXPLAINS"/>
+  		<result property="calorie" column="CALORIE"/>
+  		<result property="imgSeq" column="IMG_SEQ"/>
+  		<result property="img" column="IMG"/>
+  		<result property="memberId" column="MEMBER_ID"/>
+  		<result property="password" column="PASSWORD"/>
+  		<result property="name" column="NAME"/>
+  		<result property="age" column="AGE"/>
+  		<result property="ssn" column="SSN"/>
+  		<result property="gender" column="GENDER"/>
+  		<result property="address" column="ADDRESS"/>
+  		<result property="eMail" column="E_MAIL"/>
+  		<result property="tasteSeq" column="TASTE_SEQ"/>
+  		<result property="quantity" column="QUANTITY"/>
+  		<result property="dirName" column="DIR_NAME"/>
+  		<result property="grade" column="GRADE"/>
+  		<result property="tasteDate" column="TASTE_DATE"/>
+  		<result property="tasteTime" column="TASTE_TIME"/>
+  		<result property="flag" column="FLAG"/>
+  		<result property="tag_seq" column="TAG_SEQ"/>
+  		<result property="tag_flag" column="TAG_FLAG"/>
+  		<result property="tag_name" column="TAG_NAME"/>
+  		<result property="avg" column="avg"/>
+  		<result property="count" column="COUNT"/>
+  		<result property="sum" column="SUM"/>
+  		<result property="no" column="NO"/>
+  	</resultMap>
+  	<insert id="postTag">
+  		INSERT INTO TAG_ITEM
+  		(TAG_SEQ,ITEM_SEQ)
+  		VALUES 
+  		(
+  		(SELECT TAG_SEQ
+  		FROM TAG
+  		WHERE TAG_NAME LIKE #{tagName}),
+	  	#{itemSeq}	
+		)
+  	</insert>
+  	<select id="selectOneGrade" resultType="string">
+  		SELECT GRADE 
+  		FROM TASTE 
+  		WHERE MEMBER_ID LIKE #{id}
+  			AND ITEM_SEQ LIKE #{itemSeq}
+  			AND FLAG LIKE 'star'
+  	</select>
+  	<select id="countRatingsById" resultType="int">
+  	SELECT COUNT(*)
+  	FROM TASTE
+  	WHERE FLAG LIKE 'STAR'
+  		AND MEMBER_ID LIKE #{id}
+  	</select>
+  	<select id="countUnRatingsById" resultType="int">
+  	SELECT COUNT(*)
+	FROM ITEM 
+	WHERE ITEM_SEQ NOT IN (
+		SELECT ITEM_SEQ
+		FROM TASTE 
+		WHERE FLAG LIKE 'STAR'
+			AND MEMBER_ID LIKE #{id}
+	)
+  	</select>
+  	<select id="evaluateList" resultMap="result">
+  	SELECT * 
+  	FROM IMAGE m join (
+		SELECT *, row_number() over() as NO
+		FROM ITEM 
+		WHERE ITEM_SEQ NOT IN (
+			SELECT ITEM_SEQ
+			FROM TASTE 
+			WHERE FLAG LIKE 'STAR'
+				AND MEMBER_ID LIKE #{id}
+		)
+	) T on m.ITEM_SEQ like T.ITEM_SEQ
+	WHERE NO between #{pagination.beginRow} and #{pagination.endRow};
+  	</select>
+	<insert id="insertGrade">
+	INSERT INTO TASTE
+	(GRADE, FLAG, MEMBER_ID, ITEM_SEQ)
+	VALUES
+	(#{currentRating} , 'star', #{id}, #{itemSeq})
+	</insert>
+	<delete id="removeGrade">
+	DELETE FROM TASTE
+	WHERE MEMBER_ID LIKE #{id}
+		AND ITEM_SEQ LIKE #{itemSeq}
+		AND FLAG LIKE 'star'
+	</delete>
+	<update id="modifyGrade">
+	UPDATE TASTE
+	SET GRADE = #{currentRating}
+	WHERE FLAG LIKE 'star'
+		AND MEMBER_ID LIKE #{id}
+		AND ITEM_SEQ LIKE #{itemSeq}
+	</update>
+	<select id="countGrade" resultType="string">
+	SELECT COUNT(*) FROM TASTE
+	WHERE FLAG LIKE 'star'
+		AND MEMBER_ID LIKE #{id}
+	</select>
+	<select  id="countItem" resultType="int">
+	SELECT COUNT(*) FROM ITEM
+	</select>
+ 	<select id="gradList" resultMap="result">
+	  	SELECT *
+		FROM
+			(SELECT ROW_NUMBER() OVER(ORDER BY A.avg DESC) as no,A.*
+			FROM
+				(SELECT 
+			  		 it.*,im.IMG,ROUND(AVG(t.grade),2) AS avg
+				FROM ITEM it
+					JOIN IMAGE im ON it.ITEM_SEQ like im.ITEM_SEQ
+					JOIN TASTE t ON it.ITEM_SEQ like t.ITEM_SEQ
+				WHERE t.FLAG LIKE 'STAR'
+				GROUP BY 
+					it.ITEM_SEQ) A) B
+		WHERE NO &lt;= 20
+		ORDER BY NO
+  	</select>
+ 	<select id="buyList" resultMap="result">
+	  	SELECT *
+		FROM
+			(SELECT ROW_NUMBER() OVER(ORDER BY A.SUM DESC) as no,A.*
+			FROM
+				(SELECT 
+			  		 it.*,im.IMG,SUM(t.QUANTITY) AS SUM
+				FROM ITEM it
+					JOIN IMAGE im ON it.ITEM_SEQ like im.ITEM_SEQ
+					JOIN TASTE t ON it.ITEM_SEQ like t.ITEM_SEQ
+				WHERE t.FLAG LIKE 'BUY'
+				GROUP BY 
+					it.ITEM_SEQ) A) B
+		WHERE NO &lt;= 20
+		ORDER BY NO
+  	</select>
+ 	<select id="wishList" resultMap="result">
+	  	SELECT *
+		FROM
+			(SELECT ROW_NUMBER() OVER(ORDER BY A.COUNT DESC) as NO, A.*
+			FROM
+				(SELECT 
+			  		 it.*,im.IMG,COUNT(t.TASTE_SEQ) AS COUNT
+				FROM ITEM it
+					JOIN IMAGE im ON it.ITEM_SEQ like im.ITEM_SEQ
+					JOIN TASTE t ON it.ITEM_SEQ like t.ITEM_SEQ
+				WHERE t.FLAG LIKE 'COL'
+					AND t.DIR_NAME LIKE 'WISH'
+				GROUP BY 
+					it.ITEM_SEQ) A) B
+		WHERE NO &lt;= 20
+		ORDER BY NO
+  	</select>
+ 	<select id="listByGender" resultMap="result">
+	  	SELECT * 
+	  	FROM
+			(SELECT ROW_NUMBER() OVER(ORDER BY A.COUNT DESC) as NO,A.*
+			FROM
+				(SELECT
+					IT.ITEM_SEQ,
+					IT.ITEM_NAME,
+					IM.IMG,
+					COUNT(T.TASTE_SEQ) AS COUNT	
+				FROM ITEM IT
+					JOIN IMAGE IM ON IM.ITEM_SEQ LIKE IT.ITEM_SEQ
+					JOIN TASTE T ON IT.ITEM_SEQ LIKE T.ITEM_SEQ
+				WHERE T.FLAG LIKE 'COL'
+					AND T.DIR_NAME LIKE 'WISH'
+					AND T.MEMBER_ID IN (
+						SELECT MEMBER_ID 
+						FROM MEMBER
+						WHERE GENDER LIKE #{gender})
+				GROUP BY
+					IT.ITEM_SEQ) A) B
+		WHERE NO &lt;= 20
+		ORDER BY NO;
+  	</select>
+ 	<select id="listByAge" resultMap="result">
+	  	SELECT * 
+	  	FROM
+			(SELECT ROW_NUMBER() OVER(ORDER BY A.COUNT DESC) AS NO,A.*
+			FROM
+				(SELECT
+					IT.ITEM_SEQ,
+					IT.ITEM_NAME,
+					IM.IMG,
+					COUNT(T.TASTE_SEQ) AS COUNT	
+				FROM ITEM IT
+					JOIN IMAGE IM ON IM.ITEM_SEQ LIKE IT.ITEM_SEQ
+					JOIN TASTE T ON IT.ITEM_SEQ LIKE T.ITEM_SEQ
+				WHERE T.FLAG LIKE 'COL'
+					AND T.DIR_NAME LIKE 'WISH'
+					AND T.MEMBER_ID IN (
+						SELECT MEMBER_ID 
+						FROM MEMBER
+						WHERE AGE BETWEEN #{start} AND #{end})
+				GROUP BY
+					IT.ITEM_SEQ) A) B
+		WHERE NO &lt;= 20
+		ORDER BY NO
+  	</select>
+  	<select id="tagList" resultType="string">
+  	SELECT TAG_NAME FROM TAG
+  	</select>
+  	<select id="tagSerchList" resultMap="result">
+  	SELECT * FROM
+		(SELECT ROW_NUMBER() OVER() as no,C.*
+		FROM
+			(SELECT A.*,T.TAG_NAME FROM 
+				(SELECT IT.*, IM.IMG,TI.TAG_SEQ,TI.TAG_ITEM_SEQ
+				FROM ITEM IT 
+					JOIN IMAGE IM ON IT.ITEM_SEQ LIKE IM.ITEM_SEQ
+					JOIN TAG_ITEM TI ON  TI.ITEM_SEQ LIKE IT.ITEM_SEQ
+				) A
+				JOIN TAG T ON T.TAG_SEQ LIKE A.TAG_SEQ
+			WHERE T.TAG_NAME LIKE #{tag}) C) B
+	WHERE NO &lt;= 20
+	ORDER BY NO
+  	</select>
+  </mapper>

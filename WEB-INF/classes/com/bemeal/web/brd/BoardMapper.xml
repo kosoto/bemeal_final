@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.bemeal.web.brd.BoardMapper">
+  	<resultMap type="hashmap" id="result">
+  		<result property="itemSeq" column="ITEM_SEQ"/>
+  		<result property="itemName" column="ITEM_NAME"/>
+  		<result property="brand" column="BRAND"/>
+  		<result property="category" column="CATEGORY"/>
+  		<result property="price" column="PRICE"/>
+  		<result property="salePercent" column="SALE_PERCENT"/>
+  		<result property="event" column="EVENT"/>
+  		<result property="newItem" column="NEW_ITEM"/>
+  		<result property="explains" column="EXPLAINS"/>
+  		<result property="calorie" column="CALORIE"/>
+  		<result property="imgSeq" column="IMG_SEQ"/>
+  		<result property="img" column="IMG"/>
+  		<result property="memberId" column="MEMBER_ID"/>
+  		<result property="password" column="PASSWORD"/>
+  		<result property="name" column="NAME"/>
+  		<result property="age" column="AGE"/>
+  		<result property="ssn" column="SSN"/>
+  		<result property="gender" column="GENDER"/>
+  		<result property="address" column="ADDRESS"/>
+  		<result property="eMail" column="E_MAIL"/>
+  		<result property="tasteSeq" column="TASTE_SEQ"/>
+  		<result property="quantity" column="QUANTITY"/>
+  		<result property="dirName" column="DIR_NAME"/>
+  		<result property="grade" column="GRADE"/>
+  		<result property="tasteDate" column="TASTE_DATE"/>
+  		<result property="tasteTime" column="TASTE_TIME"/>
+  		<result property="articleSeq" column="ARTICLE_SEQ"/>
+  		<result property="title" column="TITLE"/>
+  		<result property="content" column="CONTENT"/>
+  		<result property="date" column="ARTICLE_DATE"/>
+  		<result property="url" column="URL"/>
+  		<result property="flag" column="FLAG"/>
+  		<result property="avg" column="avg"/>
+  		<result property="count" column="COUNT"/>
+  		<result property="sum" column="SUM"/><!-- 갈사람 -->
+  	</resultMap>
+  	<insert id="post">
+  		INSERT INTO ARTICLE(CONTENT,MEMBER_ID,ITEM_SEQ) 
+  		VALUES(#{content},#{memberId},#{itemSeq});<!-- 오는사람 -->
+  	</insert>
+
+  	
+   	<select id="get" resultMap="result">
+		SELECT atc.*,img.IMG
+		FROM ARTICLE atc
+		JOIN IMAGE img
+			on atc.MEMBER_ID like img.MEMBER_ID
+		WHERE atc.ITEM_SEQ LIKE #{itemSeq}
+		ORDER BY atc.ARTICLE_SEQ
+<!-- 		SELECT B.*
+		FROM (
+				SELECT ROW_NUMBER() OVER() AS no,A.*
+				FROM (
+					SELECT atc.*,img.img
+					FROM ARTICLE atc
+					JOIN IMAGE img
+						on atc.member_id like img.member_id
+					WHERE atc.ITEM_SEQ LIKE #{itemSeq}
+				)A
+		)B
+		ORDER BY B.no  -->
+  	</select>
+  	
+  	<select id="retrieve" resultMap="result">
+		SELECT atc.*,img.IMG
+		FROM ARTICLE atc
+		JOIN IMAGE img
+			on atc.MEMBER_ID like img.MEMBER_ID
+		WHERE atc.ARTICLE_SEQ = #{articleSeq}
+  	</select> 	 	
+  	
+  	<update id="put">
+  		UPDATE ARTICLE 
+		SET CONTENT = #{content} 
+		WHERE ARTICLE_SEQ = #{articleSeq} 
+			and MEMBER_ID = #{memberId}
+  	</update>
+  	
+  	<delete id="delete">
+		DELETE atc.*
+		FROM ARTICLE atc
+			JOIN MEMBER mb ON atc.MEMBER_ID like mb.MEMBER_ID
+		WHERE atc.ARTICLE_SEQ like #{articleSeq}
+		and atc.MEMBER_ID like #{memberId} 
+		and mb.PASSWORD like #{password}
+  	</delete> 
+  	
+  </mapper>
